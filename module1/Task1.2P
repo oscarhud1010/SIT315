@@ -1,0 +1,30 @@
+//Set input and output pins
+const uint8_t MTN_SENSOR = 2;
+const uint8_t LED_PIN = 13;
+
+//Set default values for states
+uint8_t sensorPrevState = LOW;
+uint8_t ledState = LOW;
+
+void setup()
+{
+  //Set sensor to input and LED to output
+  pinMode(MTN_SENSOR, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  
+  //Create interrupt
+  attachInterrupt(digitalPinToInterrupt(MTN_SENSOR), motionSensed, HIGH);
+  Serial.begin(9600);
+}
+
+//Function that runs when interrupt occurs
+void motionSensed()
+{
+ ledState = !ledState;
+  digitalWrite(LED_PIN, ledState);
+}
+
+void loop()
+{
+  //No loop
+}
