@@ -1,0 +1,34 @@
+//Set input and output pins
+const uint8_t MTN_SENSOR = 2;
+const uint8_t LED_PIN = 13;
+
+//Set default values for states
+uint8_t sensorPrevState = LOW;
+uint8_t ledState = LOW;
+
+void setup()
+{
+  //Set sensor to input and LED to output
+  pinMode(MTN_SENSOR, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  //Read data from motion sensor
+  uint8_t sensorState = digitalRead(MTN_SENSOR);
+  
+  //Print inputs/outputs to serial monitor
+  Serial.print(sensorState);
+  Serial.print(sensorPrevState);
+  Serial.print(ledState);
+  Serial.println("");
+  
+  //Change LED state depending on motion sensor
+  if(sensorState != sensorPrevState)
+  {
+    ledState = !ledState;
+    digitalWrite(LED_PIN, ledState);
+  }
+}
